@@ -21,17 +21,19 @@ function askQuestion(num){
       usersAnswers.push(inputAnswer);
     }
       if (inputAnswer[num] === `${correctAnswers[num]}`) {
-        process.exit();
+        process.stdout.write(`${inputAnswer[num]} is correct.  Well done!`);
+        askQuestion(num+1);
+        
       } else {
-        process.stdout.write(`\n${usersAnswers} is the wrong answer, please try again\n`)
+        process.stdout.write(`\n${inputAnswer[num]} is the wrong answer, please try again\n`)
       }
 
   });
+
 }
+
 askQuestion(0);
 
-//
-//
 //
 // process.stdout.write(`\n\nWhat is 2+2\n\n`);
 // process.stdin.on('data', function(answer){
@@ -46,5 +48,4 @@ askQuestion(0);
 //
 process.on('exit', function(){
   process.stdout.write(`\nWell done, you got the right answer\n`);
-  askQuestion(1);
 })
