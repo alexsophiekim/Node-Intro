@@ -16,18 +16,19 @@ let usersAnswers = [];
 function askQuestion(num){
   process.stdout.write(`\n${question[num]}\n`);
   process.stdin.on('data',function(answer){
-    // let inputAnswer = answer[num].toString().trim();
-    // usersAnswers.push(answer)
-      if (usersAnswers[num] === correctAnswers[num]) {
+    let inputAnswer = answer.toString().trim();
+    if (inputAnswer === correctAnswers) {
+      usersAnswers.push(inputAnswer);
+    }
+      if (inputAnswer[num] === `${correctAnswers[num]}`) {
         process.exit();
       } else {
         process.stdout.write(`\n${usersAnswers} is the wrong answer, please try again\n`)
       }
-  })
+
+  });
 }
 askQuestion(0);
-
-
 
 //
 //
@@ -43,6 +44,7 @@ askQuestion(0);
 //   }
 // })
 //
-// process.on('exit', function(){
-//   process.stdout.write(`\nWell done, you got the right answer\n`);
-// })
+process.on('exit', function(){
+  process.stdout.write(`\nWell done, you got the right answer\n`);
+  askQuestion(1);
+})
