@@ -1,6 +1,6 @@
 const process = require('process');
 
-const question = [
+const questions = [
   'What is 2+2',
   'How many sides are there on an octagon?'
 ]
@@ -14,27 +14,28 @@ let usersAnswers = [];
 
 
 function askQuestion(num){
-  process.stdout.write(`\n${question[num]}\n`);
+  process.stdout.write(`\n${questions[num]}\n`);
+}
+
   process.stdin.on('data',function(answer){
     let inputAnswer = answer.toString().trim();
-    if (inputAnswer === correctAnswers) {
+    let questionNum = usersAnswers.length;
+    if (inputAnswer === correctAnswers[questionNum]) {
       usersAnswers.push(inputAnswer);
-    }
-      if (inputAnswer[num] === `${correctAnswers[num]}`) {
-        process.stdout.write(`${inputAnswer[num]} is correct.  Well done!`);
-        askQuestion(num+1);
-        
+      if (usersAnswers.length === questions.length) {
+        process.exit();
       } else {
-        process.stdout.write(`\n${inputAnswer[num]} is the wrong answer, please try again\n`)
+        askQuestion(usersAnswers.length);
       }
-
+    } else {
+        process.stdout.write(`\n${inputAnswer} is the wrong answer, please try again\n`)
+      }
   });
 
-}
 
 askQuestion(0);
 
-//
+/*
 // process.stdout.write(`\n\nWhat is 2+2\n\n`);
 // process.stdin.on('data', function(answer){
 //   // console.log(answer.toString().trim());
@@ -46,6 +47,9 @@ askQuestion(0);
 //   }
 // })
 //
+*/
+
+
 process.on('exit', function(){
   process.stdout.write(`\nWell done, you got the right answer\n`);
 })
